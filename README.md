@@ -21,7 +21,7 @@
 
 | Layer | Technology |
 |---|---|
-| Framework | [Next.js](https://nextjs.org/) (App Router) |
+| Framework | [React](https://react.dev/) + [Vite](https://vitejs.dev/) |
 | Language | TypeScript |
 | Styling | [Tailwind CSS v4](https://tailwindcss.com/) |
 | UI Components | [shadcn/ui](https://ui.shadcn.com/) |
@@ -35,23 +35,25 @@
 ## 📁 Folder Structure
 
 ```
-├── app/
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Home page
-│   └── globals.css         # Global styles (scrollbar, base styles)
-│
-├── components/
-│   ├── UploadForm.tsx      # Main upload + detection trigger component
-│   ├── DetectionModal.tsx  # Modal showing progress bar and results
-│   └── ui/                 # shadcn/ui primitives (Button, Dialog, etc.)
-│
-├── lib/
-│   └── utils.ts            # cn() utility and shared helpers
-│
 ├── public/                 # Static assets
-├── next.config.ts
-├── tailwind.config.ts
-└── tsconfig.json
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── UploadForm.tsx      # Main upload + detection trigger 
+│   │   ├── DetectionModal.tsx  # Modal showing progress bar and 
+│   │   ├── Navbar.tsx          # Navbar component
+│   │   ├── DetectionResult.tsx # Detection result component
+│   │   ├── Loading.tsx         # Loading component
+│   │   ├── ui/ 
+│   │   ├── skeletons/       # Skeletal UI 
+│   │   └── animated-ui/       # Animated Backgrounds
+│   │                      
+│   ├── lib/
+│   │   └── utils.ts            # cn() utility and shared helpers
+│   ├── App.tsx            # Home page
+│   ├── App.css 
+|   |__ index.css       # Global styles (scrollbar, base styles)
+|   |__ main.tsx        # Main entry point
 ```
 
 ---
