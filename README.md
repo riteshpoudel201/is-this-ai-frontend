@@ -1,75 +1,107 @@
-# React + TypeScript + Vite
+# 🤖 Is This AI? – AI Image Detector
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Upload an image. Find out if it was made by a human — or something else.
 
-Currently, two official plugins are available:
+**Is This AI?** is a modern web app that analyzes images using multiple AI detection models and returns a confidence verdict on whether the image is AI-generated or human-made. Results are streamed in real-time with live progress feedback.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- 📂 **Drag & drop or click-to-upload** image input (max 4MB)
+- 🔍 **Multi-model detection** — runs multiple AI detection models in parallel
+- ⚡ **Real-time streaming** — live progress bar as each model completes
+- 🪟 **Modal result view** — image preview + verdict displayed in a clean dialog
+- 🎨 **Violet-themed dark UI** built with Tailwind CSS v4 + shadcn/ui
+- 📱 Responsive layout for desktop and mobile
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Layer | Technology |
+|---|---|
+| Framework | [Next.js](https://nextjs.org/) (App Router) |
+| Language | TypeScript |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com/) |
+| UI Components | [shadcn/ui](https://ui.shadcn.com/) |
+| HTTP Client | [Axios](https://axios-http.com/) / Fetch API (SSE streaming) |
+| File Upload | [react-dropzone](https://react-dropzone.js.org/) |
+| Icons | [Lucide React](https://lucide.dev/) |
+| Backend / Model API | [Hugging Face Spaces](https://huggingface.co/spaces) |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Folder Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+├── app/
+│   ├── layout.tsx          # Root layout
+│   ├── page.tsx            # Home page
+│   └── globals.css         # Global styles (scrollbar, base styles)
+│
+├── components/
+│   ├── UploadForm.tsx      # Main upload + detection trigger component
+│   ├── DetectionModal.tsx  # Modal showing progress bar and results
+│   └── ui/                 # shadcn/ui primitives (Button, Dialog, etc.)
+│
+├── lib/
+│   └── utils.ts            # cn() utility and shared helpers
+│
+├── public/                 # Static assets
+├── next.config.ts
+├── tailwind.config.ts
+└── tsconfig.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+
+- Node.js `18+`
+- npm / yarn / pnpm
+
+### Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/is-this-ai.git
+cd is-this-ai
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the development server
+npm run dev
 ```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build for Production
+
+```bash
+npm run build
+npm run start
+```
+
+---
+
+## 🔗 Backend
+
+This frontend connects to a hosted **Hugging Face Space** that exposes a streaming detection endpoint:
+
+```
+POST https://riteshpoudel34-is-this-ai.hf.space/detect/stream
+```
+
+The endpoint accepts `multipart/form-data` with a `file` field and responds with a Server-Sent Events (SSE) stream emitting `progress`, `model_done`, and `done` events.
+
+> The backend runs independently. No environment variables are required to run the frontend locally.
+
+---
+
+## 📄 License
+
+MIT
