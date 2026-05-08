@@ -1,7 +1,7 @@
 import DetectionResult from './DetectionResult'
 import Loading from './Loading'
 // import Loading from './Loading'
-import DetectionResultSkeleton from './skeletons/DetectionResultSkeleton'
+// import DetectionResultSkeleton from './skeletons/DetectionResultSkeleton'
 import { Dialog, DialogContent, DialogTitle } from './ui/dialog'
 
 interface ModelResult {
